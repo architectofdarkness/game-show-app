@@ -52,7 +52,7 @@ addPhraseToDisplay(phraseArray);
 
 // Check if a
 const checkLetter = (button) => {
-  const letterList = document.querySelectorAll('#phrase .letter');
+  let letterList = document.querySelectorAll('#phrase .letter');
   
   
   for (let i = 0; i < letterList.length; i++) {
@@ -62,22 +62,28 @@ const checkLetter = (button) => {
     
     if (displayLetter == qwertyLetter) {
       letterListItem.classList.add("show");
+      console.log('MATCH!!!')
+      console.log(displayLetter);
+      console.log(qwertyLetter);
       return displayLetter;
     } else {
-      return null;
+      console.log('No Match')
+      console.log(displayLetter);
+      console.log(qwertyLetter);
     }
   }
+  console.log("THIS IS INCREDIBLY SAD")
+  return null;
 };
 
 qwerty.addEventListener('click', (event) => {
   if (event.target.tagName == "BUTTON") {
     let button = event.target;
+    console.log("Button " + button.textContent + " Clicked")
     button.classList.add("chosen");
-    button.disabled = "true";
-    checkLetter(button);
+    let letterFound = checkLetter(button);
   }
 });
-
 
 
 
