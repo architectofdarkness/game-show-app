@@ -152,16 +152,18 @@ button {
   color: var(--color-win);
 }
 
-.win {
+#overlay.win {
   background-color: var(--color-win);
+  display: none;
 }
 
 .win a {
   color: var(--color-win);
 }
 
-.lose {
+#overlay.lose {
   background-color: var(--color-lose);
+  display: none;
 }
 
 .lose a {

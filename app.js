@@ -1,5 +1,6 @@
 const reset = document.querySelector('a.btn__reset');
 
+
 reset.addEventListener('click', () => {
   const overlay = document.querySelector('#overlay');
   
@@ -50,7 +51,7 @@ const addPhraseToDisplay = (arr) => {
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
-// Check if a
+// Check for letter match between all the display letters and supplied element
 const checkLetter = (button) => {
   let letterList = document.querySelectorAll('#phrase .letter');
   
@@ -76,12 +77,37 @@ const checkLetter = (button) => {
   return null;
 };
 
+// Check if all letters have matched
+const checkWin = () => {
+  let overlayWin = document.querySelector('#overlay.win');
+  let overlayLose = document.querySelector('#overlay.lose');
+  
+  let lettersShown = phraseUL.querySelectorAll('.show');
+  let lettersDisplayed = phraseUL.querySelectorAll('.letter');
+  let matches = lettersShown.length;
+  let letters = lettersDisplayed.length;
+  
+  if (matches == letters) {
+    overlayWin.style.display = "flex";
+  } else if (missed >= 5) {
+    overlayLose.style.display = "flex";
+  }
+};
+
 qwerty.addEventListener('click', (event) => {
   if (event.target.tagName == "BUTTON") {
+    // Check for Matching Letters
     let button = event.target;
     console.log("Button " + button.textContent + " Clicked")
     button.classList.add("chosen");
     let letterFound = checkLetter(button);
+    
+    // Scoring
+    if (letterFound == null) {
+      missed++;
+      console.log("You've now missed " + missed);
+    }
+    checkWin();
   }
 });
 
