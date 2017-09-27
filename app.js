@@ -51,7 +51,7 @@ document.addEventListener('click', (e) => {
       button.className = "";
     });
     
-    const phraseArray = getRandomPhraseAsArray(phrases);
+    let phraseArray = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(phraseArray);
   }
 });
@@ -71,15 +71,19 @@ const checkLetter = (button) => {
       console.log('MATCH!!!')
       console.log(displayLetter);
       console.log(qwertyLetter);
-      return displayLetter;
+      var letterFound = displayLetter;
     } else {
-      console.log('No Match')
+      console.log('No Match');
       console.log(displayLetter);
       console.log(qwertyLetter);
     }
   }
-  console.log("THIS IS INCREDIBLY SAD")
-  return null;
+  if (letterFound) {
+      return letterFound;
+  } else {
+    console.log("THIS IS INCREDIBLY SAD");
+    return null;
+  }
 };
 
 // Check if all letters have matched
