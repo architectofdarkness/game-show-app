@@ -1,14 +1,3 @@
-const reset = document.querySelector('a.btn__reset');
-
-
-reset.addEventListener('click', () => {
-  const overlay = document.querySelector('#overlay');
-  
-  overlay.style.display = "none";
-
-});
-
-
 const phrases = [
   'MY NAME IS JEFF',
   'WHAT DO YOU MEAN',
@@ -21,9 +10,8 @@ const phrase = document.getElementById('phrase');
 const phraseUL = document.querySelector('#phrase ul');
 
 const qwerty = document.getElementById('qwerty');
-
+const qwertyButtons = document.querySelectorAll('#qwerty button');
 let missed = 0;
-
 
 
 const getRandomPhraseAsArray = (arr) => {
@@ -48,8 +36,25 @@ const addPhraseToDisplay = (arr) => {
   }
 };
 
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
+document.addEventListener('click', (e) => {
+  if (e.target.className == "btn__reset") {
+    const overlays = document.querySelectorAll('#overlay');
+    
+    for (let i = 0; i < overlays.length; i++) {
+      overlays[i].style.display = "none";
+    }
+    
+    while (phraseUL.hasChildNodes()) {
+      phraseUL.removeChild(phraseUL.lastChild);
+    }
+    qwertyButtons.forEach((button) => {
+      button.className = "";
+    });
+    
+    const phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
+  }
+});
 
 // Check for letter match between all the display letters and supplied element
 const checkLetter = (button) => {
@@ -90,6 +95,7 @@ const checkWin = () => {
   if (matches == letters) {
     overlayWin.style.display = "flex";
   } else if (missed >= 5) {
+    missed = 0;
     overlayLose.style.display = "flex";
   }
 };
