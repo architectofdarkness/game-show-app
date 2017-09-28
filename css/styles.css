@@ -125,6 +125,10 @@ button {
   border-radius: 5px;
   font-size: var(--font-size-medium);
 }
+.btn__reset:hover,
+button {
+  cursor: pointer;
+}
 
 /* Overlay */
 
