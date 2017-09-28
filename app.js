@@ -1,5 +1,6 @@
 const phrases = [
   'MY NAME IS JEFF',
+  'I SMELL LIKE BEEF',
   'WHAT DO YOU MEAN',
   'NO WAY DUDE',
   'I LIKE TRAINS',
