@@ -17,6 +17,7 @@ let missed = 0;
 let scoreBoard = document.querySelector('#scoreboard')
 let hearts = scoreBoard.querySelectorAll("img[src*='live']");
 
+// Get a phrase
 const getRandomPhraseAsArray = (arr) => {
   length = arr.length;
   
@@ -25,6 +26,7 @@ const getRandomPhraseAsArray = (arr) => {
   return letters;
 };
 
+// Add it to the display
 const addPhraseToDisplay = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     let li = document.createElement('li');
@@ -39,7 +41,7 @@ const addPhraseToDisplay = (arr) => {
   }
 };
 
-// Reset Scoreboard
+// and reset the scoreboard.
 const resetScore = () => {
   missed = 0;
   hearts.forEach((heart) => {
@@ -47,7 +49,7 @@ const resetScore = () => {
   });
 }
 
-// Reset Game upon click "Play Again"
+// LISTEN for click "Play Again": Set the Game
 document.addEventListener('click', (e) => {
   if (e.target.className == "btn__reset") {
     const overlays = document.querySelectorAll('#overlay');
@@ -70,11 +72,8 @@ document.addEventListener('click', (e) => {
 });
 
 
-
-
-
-
-// Check for letter match between all the display letters and supplied element
+// Check if the argument letter matches against all display letters
+// return letterFound or null
 const checkLetter = (button) => {
   let letterList = document.querySelectorAll('#phrase .letter');
   
@@ -128,6 +127,7 @@ qwerty.addEventListener('click', (event) => {
     
     console.log("Button " + button.textContent + " Clicked")
     button.classList.add("chosen");
+    button.setAttribute("disabled", "");
     let letterFound = checkLetter(button);
     
     // Scoring
@@ -142,14 +142,3 @@ qwerty.addEventListener('click', (event) => {
     checkWin();
   }
 });
-
-
-
-
-
-
-
-
-
-
-
