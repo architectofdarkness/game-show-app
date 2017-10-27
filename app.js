@@ -14,6 +14,8 @@ const qwerty = document.getElementById('qwerty');
 const qwertyButtons = document.querySelectorAll('#qwerty button');
 let missed = 0;
 
+let scoreBoard = document.querySelector('#scoreboard')
+let hearts = scoreBoard.querySelectorAll("img[src*='live']");
 
 const getRandomPhraseAsArray = (arr) => {
   length = arr.length;
@@ -37,6 +39,15 @@ const addPhraseToDisplay = (arr) => {
   }
 };
 
+// Reset Scoreboard
+const resetScore = () => {
+  missed = 0;
+  hearts.forEach((heart) => {
+    heart.src = 'images/liveHeart.png';
+  });
+}
+
+// Reset Game upon click "Play Again"
 document.addEventListener('click', (e) => {
   if (e.target.className == "btn__reset") {
     const overlays = document.querySelectorAll('#overlay');
@@ -54,8 +65,14 @@ document.addEventListener('click', (e) => {
     
     let phraseArray = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(phraseArray);
+    resetScore();
   }
 });
+
+
+
+
+
 
 // Check for letter match between all the display letters and supplied element
 const checkLetter = (button) => {
@@ -100,7 +117,6 @@ const checkWin = () => {
   if (matches == letters) {
     overlayWin.style.display = "flex";
   } else if (missed >= 5) {
-    missed = 0;
     overlayLose.style.display = "flex";
   }
 };
@@ -109,13 +125,18 @@ qwerty.addEventListener('click', (event) => {
   if (event.target.tagName == "BUTTON") {
     // Check for Matching Letters
     let button = event.target;
+    
     console.log("Button " + button.textContent + " Clicked")
     button.classList.add("chosen");
     let letterFound = checkLetter(button);
     
     // Scoring
+    let liveHearts = scoreBoard.querySelectorAll("img[src*='live']");
+    
     if (letterFound == null) {
       missed++;
+      liveHearts[liveHearts.length - 1].src = 'images/lostHeart.png';
+      
       console.log("You've now missed " + missed);
     }
     checkWin();
